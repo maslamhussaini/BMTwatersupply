@@ -269,7 +269,7 @@ export default function HomePage() {
           backgroundSize: '40px 40px'
         }} />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-24 md:pt-40 md:pb-36">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 md:pt-40 md:pb-28">
           <div className="max-w-3xl reveal">
             <div className="inline-flex items-center gap-2 mb-8">
               <span className="w-2 h-2 bg-accent rounded-full relative">
@@ -312,12 +312,9 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Wave divider */}
-        <div className="hero-wave">
-          <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-[50px] md:h-[70px]">
-            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="white" opacity=".5"/>
-            <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,19.45,31.77,11.48,64.73,17.27,97.08,12.37,43.72-6.62,84.83-28.31,128.77-38.87,59-14,122.39,2,171.68,20.08,35.53,12.93,69.88,30.93,103.37,41.63,22.87,7.44,46.32,12.95,69.83,14.07C1152.12,87.44,1200,56.52,1200,0Z" fill="white"/>
-          </svg>
+        {/* Clean geometric transition */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <div className="h-16 bg-gradient-to-t from-white to-transparent" />
         </div>
       </section>
 
@@ -334,28 +331,44 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
-            {services.map((service, index) => (
+          {/* Core Services — 3 featured cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            {services.slice(0, 3).map((service, index) => (
               <div
                 key={index}
-                className={`group reveal stagger-${index + 1}`}
+                className={`reveal stagger-${index + 1} group relative bg-white border border-slate-200 rounded-2xl p-8 md:p-10 text-center hover:border-primary/30 hover:shadow-lg transition-all duration-300`}
               >
-                <div className="flex items-start gap-5">
-                  <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300">
-                    {service.icon}
-                  </div>
-                  <div className="flex-1 pt-1">
-                    <h3 className="text-lg font-bold text-navy mb-2 leading-snug">
-                      {service.title}
-                    </h3>
-                    <p className="text-slate-500 leading-relaxed text-[15px]">
-                      {service.description}
-                    </p>
-                  </div>
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                  {service.icon}
                 </div>
-                {index < services.length - 1 && (
-                  <div className="hidden lg:block h-px bg-slate-100 mt-8" />
-                )}
+                <h3 className="text-xl font-bold text-navy mb-3">
+                  {service.title}
+                </h3>
+                <p className="text-slate-500 leading-relaxed">
+                  {service.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Additional Services — compact row */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {services.slice(3, 6).map((service, index) => (
+              <div
+                key={index + 3}
+                className={`reveal stagger-${index + 4} flex items-start gap-4 group`}
+              >
+                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300">
+                  {service.icon}
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-navy mb-1">
+                    {service.title}
+                  </h3>
+                  <p className="text-sm text-slate-500 leading-relaxed">
+                    {service.description}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -467,18 +480,27 @@ export default function HomePage() {
       </section>
 
       {/* Trust / Value Props */}
-      <section className="py-20 md:py-24 bg-navy text-white">
+      <section className="py-20 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16 reveal">
+            <span className="section-label">Why BMT</span>
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-navy mb-5">
+              Built on Reliability
+            </h2>
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
+              Basma Al Madina Transport LLC is structured around responsive delivery, clean water standards, and transparent service across Dubai and the UAE.
+            </p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             {trustPoints.map((point, index) => (
-              <div key={index} className={`reveal stagger-${index + 1}`}>
-                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-5">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5 text-accent">
+              <div key={index} className={`reveal stagger-${index + 1} text-center`}>
+                <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-5">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-6 h-6 text-primary">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-bold mb-2">{point.title}</h3>
-                <p className="text-slate-300 text-sm leading-relaxed">{point.description}</p>
+                <h3 className="text-lg font-bold text-navy mb-2">{point.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{point.description}</p>
               </div>
             ))}
           </div>
@@ -887,19 +909,6 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
-
-      {/* Floating WhatsApp Button */}
-      <a
-        href="https://wa.me/971553311977"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-24 right-5 md:right-6 z-40 bg-[#25D366] text-white p-4 rounded-full shadow-xl hover:bg-[#20bd5a] transition-all hover:scale-110 md:bottom-8"
-        aria-label="Chat on WhatsApp"
-      >
-        <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-        </svg>
-      </a>
 
       {/* Mobile sticky CTA bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-slate-200 p-3 flex gap-3 md:hidden z-40">
