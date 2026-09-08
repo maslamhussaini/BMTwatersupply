@@ -263,34 +263,39 @@ export default function HomePage() {
       {/* Hero Section */}
       <section id="home" className="relative bg-navy text-white overflow-hidden">
         {/* Background layers */}
-        <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy-light to-primary/80" />
-        <div className="absolute inset-0 opacity-[0.03]" style={{
+        <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy-light to-primary/90" />
+        <div className="absolute inset-0 opacity-[0.04]" style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
           backgroundSize: '40px 40px'
         }} />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 md:pt-40 md:pb-28">
-          <div className="max-w-3xl reveal">
-            <div className="inline-flex items-center gap-2 mb-8">
-              <span className="w-2 h-2 bg-accent rounded-full relative">
+        {/* Water-inspired geometric accent */}
+        <div className="absolute -right-32 -top-32 w-[500px] h-[500px] rounded-full border border-white/[0.06] opacity-40" />
+        <div className="absolute -right-20 -top-20 w-[400px] h-[400px] rounded-full border border-white/[0.04] opacity-30" />
+        <div className="absolute -left-20 bottom-20 w-[300px] h-[300px] rounded-full border border-accent/10 opacity-40" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-24 md:pt-40 md:pb-32">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 mb-8 reveal">
+              <span className="w-1.5 h-1.5 bg-accent rounded-full relative">
                 <span className="absolute inset-0 bg-accent rounded-full animate-ping opacity-60" />
               </span>
-              <span className="text-xs font-bold tracking-[0.2em] uppercase text-white/70">
+              <span className="text-[11px] font-bold tracking-[0.25em] uppercase text-white/80">
                 Dubai &amp; UAE
               </span>
             </div>
 
-            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.08] mb-8 tracking-tight">
+            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-8 tracking-tight reveal stagger-1">
               Water Tanker Delivery,
               <br />
               <span className="text-accent">When You Need It.</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl leading-relaxed">
+            <p className="text-lg md:text-xl text-slate-300 mb-12 max-w-2xl leading-relaxed reveal stagger-2">
               Professional water supply services for residential, commercial, construction and industrial requirements across Dubai and the UAE.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 reveal stagger-3">
               <a href="tel:+971553311977" className="btn btn-primary text-base px-8 py-4 justify-center">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-5 h-5">
                   <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
@@ -314,7 +319,7 @@ export default function HomePage() {
 
         {/* Clean geometric transition */}
         <div className="absolute bottom-0 left-0 right-0">
-          <div className="h-16 bg-gradient-to-t from-white to-transparent" />
+          <div className="h-24 bg-gradient-to-t from-white via-white/80 to-transparent" />
         </div>
       </section>
 
@@ -351,8 +356,17 @@ export default function HomePage() {
             ))}
           </div>
 
+          {/* Divider + CTA */}
+          <div className="flex items-center justify-center reveal">
+            <div className="h-px bg-slate-200 flex-1 max-w-xs" />
+            <span className="px-6 text-xs font-bold tracking-[0.2em] uppercase text-slate-400">
+              More Services
+            </span>
+            <div className="h-px bg-slate-200 flex-1 max-w-xs" />
+          </div>
+
           {/* Additional Services — compact row */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
             {services.slice(3, 6).map((service, index) => (
               <div
                 key={index + 3}
@@ -480,7 +494,7 @@ export default function HomePage() {
       </section>
 
       {/* Trust / Value Props */}
-      <section className="py-20 md:py-24 bg-white">
+      <section className="py-20 md:py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 reveal">
             <span className="section-label">Why BMT</span>
@@ -494,7 +508,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             {trustPoints.map((point, index) => (
               <div key={index} className={`reveal stagger-${index + 1} text-center`}>
-                <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-5">
+                <div className="w-14 h-14 rounded-full bg-white border border-slate-200 flex items-center justify-center mx-auto mb-5">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-6 h-6 text-primary">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
@@ -606,7 +620,7 @@ export default function HomePage() {
           <div className="text-center mb-16 reveal">
             <span className="section-label">Contact Us</span>
             <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-navy mb-5">
-              Get In Touch
+              Need Water Delivered?
             </h2>
             <p className="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
               Have a question or need a quote? Reach out to BMT directly or send us your requirements.
