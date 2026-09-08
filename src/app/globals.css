@@ -1,8 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
+@theme {
   --color-primary: #003B73;
   --color-secondary: #0077B6;
   --color-accent: #00A3E0;
@@ -16,7 +14,6 @@ html, body {
   scroll-behavior: smooth;
 }
 
-/* Typography */
 .font-display {
   font-family: var(--font-playfair), Georgia, serif;
 }
