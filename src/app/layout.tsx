@@ -1,60 +1,20 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import { Header, NavigationProvider } from "@/components/navigation";
+import { Footer } from "@/components/page-parts";
+import { business } from "@/lib/site";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  display: "swap",
-});
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
+const playfair = Playfair_Display({ variable: "--font-playfair", subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Basma Al Madina Transport LLC | Water Tanker Supply Dubai",
-  description:
-    "Professional water tanker and water supply services in Dubai, UAE. Reliable potable, non-potable, swimming pool water delivery and tanker services for residential, commercial and construction needs.",
-  keywords: [
-    "water tanker Dubai",
-    "water supply Dubai",
-    "potable water delivery",
-    "swimming pool water",
-    "construction water supply",
-    "BMT Dubai",
-    "Basma Al Madina Transport",
-    "water tanker UAE",
-    "non-potable water",
-    "bulk water delivery",
-  ],
-  authors: [{ name: "Basma Al Madina Transport LLC" }],
-  openGraph: {
-    title: "Basma Al Madina Transport LLC | Water Tanker Supply Dubai",
-    description:
-      "Professional water tanker and water supply services in Dubai, UAE. Reliable potable, non-potable, swimming pool water delivery and tanker services.",
-    url: "https://bmtwatersupply.ae",
-    siteName: "BMT Water Supply",
-    locale: "en_AE",
-    type: "website",
-  },
-  icons: {
-    icon: "/favicon.ico",
-  },
+  metadataBase: new URL(business.url),
+  title: { default: "Basma Al Madina Transport LLC | Water Tanker Supply Dubai", template: "%s | BMT Water Supply" },
+  description: "Professional water supply and tanker delivery in Dubai and the UAE.",
+  icons: { icon: [{ url: "/favicon.ico" }, { url: "/favicon-32.png", sizes: "32x32", type: "image/png" }], apple: [{ url: "/favicon-180.png", sizes: "180x180" }] },
 };
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`} suppressHydrationWarning>
-        {children}
-      </body>
-    </html>
-  );
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const structured = { "@context": "https://schema.org", "@type": "LocalBusiness", "@id": `${business.url}/#business`, name: business.name, url: business.url, logo: `${business.url}${business.logo}`, telephone: "+971553311977", email: business.email, address: { "@type": "PostalAddress", streetAddress: "Office 402, Crystal Tower, M Hotel by Millennium, Business Bay", addressLocality: "Dubai", addressCountry: "AE" }, areaServed: "United Arab Emirates", contactPoint: [{ "@type": "ContactPoint", telephone: "+971504643456", contactType: "customer service" }] };
+  return <html lang="en"><body className={`${inter.variable} ${playfair.variable}`}><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structured).replace(/</g, "\\u003c") }} /><NavigationProvider><a className="skip-link" href="#main-content">Skip to content</a><Header /><main id="main-content" tabIndex={-1}>{children}</main><Footer /></NavigationProvider></body></html>;
 }
