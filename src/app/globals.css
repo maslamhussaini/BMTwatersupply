@@ -184,7 +184,6 @@ html, body {
 /* Nav link underline */
 .nav-link {
   position: relative;
-  color: inherit;
   font-weight: 500;
   transition: color 0.2s;
   text-decoration: none;

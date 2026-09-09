@@ -146,6 +146,7 @@ export default function HomePage() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -176,7 +177,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-white font-body text-slate pb-20 md:pb-0">
+    <div className="min-h-screen bg-white font-body text-slate pb-20 md:pb-0" suppressHydrationWarning>
       {/* Navbar */}
       <header
         className={`fixed w-full z-50 transition-all duration-300 ${
@@ -189,7 +190,7 @@ export default function HomePage() {
           <nav className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href="#home" className="flex items-center gap-3 flex-shrink-0">
-              <Image src="/bmt-logo.svg" alt="BMT Logo" width={96} height={32} className="h-9 w-auto" />
+              <Image src="/bmt-logo.svg" alt="BMT Logo" width={96} height={32} className="h-9 w-auto" priority loading="eager" />
               <div className={`flex flex-col ${scrolled ? "text-navy" : "text-white"}`}>
                 <span className="text-base font-bold tracking-tight leading-none">
                   Basma Al Madina
@@ -202,19 +203,19 @@ export default function HomePage() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
-              <Link href="#services" className={`nav-link text-sm ${scrolled ? "text-slate-600" : "text-white/85"}`}>
+              <Link href="#services" className={`nav-link text-sm ${scrolled ? "text-slate-600" : "text-white"}`}>
                 Services
               </Link>
-              <Link href="#about" className={`nav-link text-sm ${scrolled ? "text-slate-600" : "text-white/85"}`}>
+              <Link href="#about" className={`nav-link text-sm ${scrolled ? "text-slate-600" : "text-white"}`}>
                 About
               </Link>
-              <Link href="#faq" className={`nav-link text-sm ${scrolled ? "text-slate-600" : "text-white/85"}`}>
+              <Link href="#faq" className={`nav-link text-sm ${scrolled ? "text-slate-600" : "text-white"}`}>
                 FAQ
               </Link>
-              <Link href="#contact" className={`nav-link text-sm ${scrolled ? "text-slate-600" : "text-white/85"}`}>
+              <Link href="#contact" className={`nav-link text-sm ${scrolled ? "text-slate-600" : "text-white"}`}>
                 Contact
               </Link>
-              <a href="tel:+971553311977" className="btn btn-navy text-sm py-2.5 px-5">
+              <a href="tel:+971553311977" className={`btn btn-navy text-sm py-2.5 px-5 ${!scrolled ? "!text-white" : ""}`}>
                 Call Now
               </a>
             </div>
@@ -615,7 +616,7 @@ export default function HomePage() {
       </section>
 
       {/* Contact / Quote Section */}
-      <section id="contact" className="py-20 md:py-28 bg-white">
+      <section id="contact" className="py-20 md:py-28 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 reveal">
             <span className="section-label">Contact Us</span>
@@ -707,7 +708,7 @@ export default function HomePage() {
 
             {/* Quote Form */}
             <div className="reveal stagger-2">
-              <div className="bg-white rounded-2xl p-8 md:p-10 border border-slate-100">
+              <div className="bg-white rounded-2xl p-8 md:p-10 border border-slate-100 shadow-sm">
                 <h3 className="font-display text-2xl font-bold text-navy mb-2">
                   Request a Quote
                 </h3>
@@ -716,86 +717,95 @@ export default function HomePage() {
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
-                  <div>
-                    <label className="block text-sm font-semibold text-navy mb-1.5">
-                      Name <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      className="input"
-                      placeholder="Your full name"
-                      value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })}
-                      required
-                    />
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <div>
+                      <label className="block text-sm font-semibold text-navy mb-1.5">
+                        Name <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className="input"
+                        placeholder="Your full name"
+                        value={formData.name}
+                        onChange={(e) =>
+                          setFormData({ ...formData, name: e.target.value })}
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-semibold text-navy mb-1.5">
+                        Phone <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="tel"
+                        className="input"
+                        placeholder="+971 XX XXX XXXX"
+                        value={formData.phone}
+                        onChange={(e) =>
+                          setFormData({ ...formData, phone: e.target.value })}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <div>
+                      <label className="block text-sm font-semibold text-navy mb-1.5">
+                        Location
+                      </label>
+                      <select
+                        className="input"
+                        value={formData.location}
+                        onChange={(e) =>
+                          setFormData({ ...formData, location: e.target.value })}
+                      >
+                        <option value="">Select location</option>
+                        <option value="Dubai">Dubai</option>
+                        <option value="Sharjah">Sharjah</option>
+                        <option value="Ajman">Ajman</option>
+                        <option value="Abu Dhabi">Abu Dhabi</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-semibold text-navy mb-1.5">
+                        Service Required <span className="text-red-500">*</span>
+                      </label>
+                      <select
+                        className="input"
+                        value={formData.service}
+                        onChange={(e) =>
+                          setFormData({ ...formData, service: e.target.value })}
+                        required
+                      >
+                        <option value="">Select a service</option>
+                        <option value="Swimming Pool Water Supply">
+                          Swimming Pool Water Supply
+                        </option>
+                        <option value="Sweet / Potable Water Supply">
+                          Sweet / Potable Water Supply
+                        </option>
+                        <option value="Salt / Non-Potable Water Supply">
+                          Salt / Non-Potable Water Supply
+                        </option>
+                        <option value="Water Removal / Tank Emptying">
+                          Water Removal / Tank Emptying
+                        </option>
+                        <option value="Construction Site Water Supply">
+                          Construction Site Water Supply
+                        </option>
+                        <option value="Commercial / Bulk Water Delivery">
+                          Commercial / Bulk Water Delivery
+                        </option>
+                      </select>
+                    </div>
                   </div>
 
                   <div>
                     <label className="block text-sm font-semibold text-navy mb-1.5">
-                      Phone <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="tel"
-                      className="input"
-                      placeholder="+971 XX XXX XXXX"
-                      value={formData.phone}
-                      onChange={(e) =>
-                        setFormData({ ...formData, phone: e.target.value })}
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-navy mb-1.5">
-                      Service Required <span className="text-red-500">*</span>
-                    </label>
-                    <select
-                      className="input"
-                      value={formData.service}
-                      onChange={(e) =>
-                        setFormData({ ...formData, service: e.target.value })}
-                      required
-                    >
-                      <option value="">Select a service</option>
-                      <option value="Swimming Pool Water Supply">
-                        Swimming Pool Water Supply
-                      </option>
-                      <option value="Sweet / Potable Water Supply">
-                        Sweet / Potable Water Supply
-                      </option>
-                      <option value="Salt / Non-Potable Water Supply">
-                        Salt / Non-Potable Water Supply
-                      </option>
-                      <option value="Water Removal / Tank Emptying">
-                        Water Removal / Tank Emptying
-                      </option>
-                      <option value="Construction Site Water Supply">
-                        Construction Site Water Supply
-                      </option>
-                      <option value="Commercial / Bulk Water Delivery">
-                        Commercial / Bulk Water Delivery
-                      </option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-navy mb-1.5">
-                      Location
-                    </label>
-                    <input
-                      type="text"
-                      className="input"
-                      placeholder="Area / Community in Dubai"
-                      value={formData.location}
-                      onChange={(e) =>
-                        setFormData({ ...formData, location: e.target.value })}
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-navy mb-1.5">
-                      Message
+                      Message <span className="text-slate-400 font-normal">(Optional)</span>
                     </label>
                     <textarea
                       className="input"
@@ -807,10 +817,26 @@ export default function HomePage() {
                     />
                   </div>
 
-                  <button type="submit" className="btn btn-navy w-full justify-center text-base">
-                    Send Request via WhatsApp
+                  <button type="submit" className="btn-whatsapp w-full justify-center text-base py-3.5">
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                    </svg>
+                    Send via WhatsApp
                   </button>
                 </form>
+
+                <div className="mt-6 pt-6 border-t border-slate-100 text-center">
+                  <p className="text-sm text-slate-500">
+                    Or call us directly:{" "}
+                    <a href="tel:+971553311977" className="text-navy font-semibold hover:text-accent transition-colors">
+                      +971 55 331 1977
+                    </a>{" "}
+                    •{" "}
+                    <a href="https://wa.me/971553311977" target="_blank" rel="noopener noreferrer" className="text-[#25D366] font-semibold hover:text-[#20bd5a] transition-colors">
+                      WhatsApp +971 55 331 1977
+                    </a>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -824,7 +850,7 @@ export default function HomePage() {
             {/* Brand */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-6">
-                <Image src="/bmt-logo.svg" alt="BMT Logo" width={96} height={32} className="h-10 w-auto" />
+                <Image src="/bmt-logo.svg" alt="BMT Logo" width={96} height={32} className="h-10 w-auto" priority loading="eager" />
                 <div>
                   <span className="text-lg font-bold block leading-none">Basma Al Madina</span>
                   <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-white/70">
