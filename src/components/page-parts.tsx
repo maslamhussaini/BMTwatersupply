@@ -2,6 +2,7 @@ import { business } from "@/lib/site";
 import { Brand } from "./brand";
 import { Icon } from "./icons";
 import { RouteLink } from "./navigation";
+import { MobileCta } from "./mobile-cta";
 
 export function PageIntro({ label, title, children }: { label: string; title: string; children: React.ReactNode }) {
   return <section className="page-intro"><div className="container"><span className="eyebrow">{label}</span><h1>{title}</h1><p>{children}</p></div></section>;
@@ -23,6 +24,7 @@ export function Footer() {
     <nav aria-label="Footer navigation"><h2>Explore BMT</h2><RouteLink href="/services">Our services</RouteLink><RouteLink href="/about">About BMT</RouteLink><RouteLink href="/faq">Common questions</RouteLink><RouteLink href="/contact">Request a delivery</RouteLink></nav>
     <div className="footer-contact"><h2>Get in touch</h2><a href={business.phoneHref}>{business.phone}</a><a href={business.secondaryPhoneHref}>{business.secondaryPhone}</a><a href={`mailto:${business.email}`}>{business.email}</a><address>{business.address}</address></div>
   </div><div className="footer-bottom"><span>© {new Date().getFullYear()} {business.name}</span><span>Water for everyday life. Supply for the work ahead.</span></div></div></footer>
-    <div className="mobile-cta" aria-label="Quick contact"><a href={business.phoneHref}><Icon name="phone" />Call BMT</a><a href={business.whatsapp} target="_blank" rel="noopener noreferrer"><Icon name="chat" />WhatsApp</a></div>
+    <a className="floating-whatsapp" href={business.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Chat with BMT on WhatsApp"><Icon name="chat" /></a>
+    <MobileCta />
   </>;
 }

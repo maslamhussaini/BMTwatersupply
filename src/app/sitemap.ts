@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
-import { business, navigation } from "@/lib/site";
+import { business, navigation, services } from "@/lib/site";
 export default function sitemap(): MetadataRoute.Sitemap {
-  return navigation.map(page => ({ url: `${business.url}${page.href === "/" ? "/" : page.href}` }));
+  const pages = navigation.map(page => ({ url: `${business.url}${page.href === "/" ? "/" : page.href}` }));
+  const serviceDetails = services.map(service => ({ url: `${business.url}/services/${service.id}` }));
+  return [...pages, ...serviceDetails];
 }

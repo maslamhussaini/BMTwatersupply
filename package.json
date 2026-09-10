@@ -1,8 +1,8 @@
 {
-  "name": "uj-transport",
+  "name": "bmt-water-supply",
   "version": "0.1.0",
   "private": true,
-  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
+  "description": "BMT (Basma Al Madina Transport LLC) water supply and tanker delivery website, built with Next.js.",
   "license": "ISC",
   "author": "",
   "type": "module",
